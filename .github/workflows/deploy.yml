@@ -1,0 +1,34 @@
+name: JobNova CI/CD Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            set -e
+            if [ ! -d ~/jobnova-backend ]; then
+              git clone https://github.com/santanu1998/jobnova-backend.git ~/jobnova-backend
+            fi
+            cd ~/jobnova-backend
+            git fetch origin
+            git checkout main
+            git pull origin main
+            docker compose -f docker/docker-compose.yml down || true
+            docker compose -f docker/docker-compose.yml up -d --build
+            docker compose -f docker/docker-compose.yml ps
+
