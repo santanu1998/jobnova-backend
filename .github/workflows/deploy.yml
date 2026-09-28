@@ -15,20 +15,42 @@ jobs:
 
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v1.0.0
+        env:
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
+          MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          DUCKDNS_DOMAIN: ${{ secrets.DUCKDNS_DOMAIN }}
+          DUCKDNS_TOKEN: ${{ secrets.DUCKDNS_TOKEN }}
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+          envs: DB_PASSWORD,GEMINI_API_KEY,MAIL_USERNAME,MAIL_PASSWORD,JWT_SECRET,DUCKDNS_DOMAIN,DUCKDNS_TOKEN
           script: |
             set -e
-            if [ ! -d ~/jobnova-backend ]; then
+
+            mkdir -p ~/jobnova-backend
+            if [ ! -d ~/jobnova-backend/.git ]; then
               git clone https://github.com/santanu1998/jobnova-backend.git ~/jobnova-backend
             fi
+
             cd ~/jobnova-backend
             git fetch origin
             git checkout main
-            git pull origin main
-            docker compose -f docker/docker-compose.yml down || true
-            docker compose -f docker/docker-compose.yml up -d --build
-            docker compose -f docker/docker-compose.yml ps
+            git pull --ff-only origin main
 
+            cat > .env <<EOF
+            DB_PASSWORD=${DB_PASSWORD}
+            GEMINI_API_KEY=${GEMINI_API_KEY}
+            MAIL_USERNAME=${MAIL_USERNAME}
+            MAIL_PASSWORD=${MAIL_PASSWORD}
+            JWT_SECRET=${JWT_SECRET}
+            DUCKDNS_DOMAIN=${DUCKDNS_DOMAIN}
+            DUCKDNS_TOKEN=${DUCKDNS_TOKEN}
+            EOF
+
+            docker compose -f docker/docker-compose.yml --env-file .env down || true
+            docker compose -f docker/docker-compose.yml --env-file .env up -d --build
+            docker compose -f docker/docker-compose.yml --env-file .env ps
