@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: User-Services
+  config:
+    import: optional:configserver:http://localhost:8888
+
+JWT_SECRET: ${JWT_SECRET}

@@ -1,0 +1,15 @@
+package com.globalco.payload;
+
+import com.globalco.domain.AiShortListStatus;
+import com.globalco.domain.ApplicationStatus;
+import lombok.Data;
+
+@Data
+public class CompanyApplicationFilterRequest {
+    private Long jobId;
+    private ApplicationStatus status;
+    private Boolean isStarred=false;
+    private AiShortListStatus aiShortListStatus;
+    private Integer minAiScore;
+    private String sortBy;
+}

@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: Application-Service
+  config:
+    import: optional:configserver:http://localhost:8888
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+  #    producer:
+  #      key-serializer: or

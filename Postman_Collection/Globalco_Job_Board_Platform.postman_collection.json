@@ -1,0 +1,3248 @@
+{
+  "info": {
+    "name": "Globalco AI-Powered Job Board Platform",
+    "description": "Complete API testing collection for the Globalco Job Board Platform with all microservices",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "globalco-job-board-collection",
+    "version": "1.0.0"
+  },
+  "item": [
+    {
+      "name": "User-Service (Port 5001)",
+      "item": [
+        {
+          "name": "Authentication",
+          "item": [
+            {
+              "name": "Signup - Example 1 (Candidate)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fullName\": \"John Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"password\": \"SecurePass123!\",\n  \"role\": \"CANDIDATE\",\n  \"phoneNumber\": \"+1-555-0101\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5001/auth/signup",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["auth", "signup"]
+                }
+              }
+            },
+            {
+              "name": "Signup - Example 2 (Employer)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fullName\": \"Jane Smith\",\n  \"email\": \"jane.smith@company.com\",\n  \"password\": \"SecurePass123!\",\n  \"role\": \"EMPLOYER\",\n  \"phoneNumber\": \"+1-555-0102\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5001/auth/signup",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["auth", "signup"]
+                }
+              }
+            },
+            {
+              "name": "Signup - Example 3 (Admin)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fullName\": \"Admin User\",\n  \"email\": \"admin@globalco.com\",\n  \"password\": \"AdminPass123!\",\n  \"role\": \"ADMIN\",\n  \"phoneNumber\": \"+1-555-0100\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5001/auth/signup",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["auth", "signup"]
+                }
+              }
+            },
+            {
+              "name": "Login - Example 1 (Candidate)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"john.doe@example.com\",\n  \"password\": \"SecurePass123!\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5001/auth/login",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["auth", "login"]
+                }
+              }
+            },
+            {
+              "name": "Login - Example 2 (Employer)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"jane.smith@company.com\",\n  \"password\": \"SecurePass123!\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5001/auth/login",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["auth", "login"]
+                }
+              }
+            },
+            {
+              "name": "Login - Example 3 (Admin)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"admin@globalco.com\",\n  \"password\": \"AdminPass123!\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5001/auth/login",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["auth", "login"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "User Management",
+          "item": [
+            {
+              "name": "Get Profile - Example 1",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "X-User-Email",
+                    "value": "john.doe@example.com"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5001/api/users/profile",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "users", "profile"]
+                }
+              }
+            },
+            {
+              "name": "Get Profile - Example 2",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "X-User-Email",
+                    "value": "jane.smith@company.com"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5001/api/users/profile",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "users", "profile"]
+                }
+              }
+            },
+            {
+              "name": "Update Profile - Example 1",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "X-User-Email",
+                    "value": "john.doe@example.com"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe Updated\",\n  \"phoneNumber\": \"+1-555-0101\",\n  \"bio\": \"Full Stack Developer with 5 years of experience\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5001/api/users/update-profile",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "users", "update-profile"]
+                }
+              }
+            },
+            {
+              "name": "Update Profile - Example 2",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "X-User-Email",
+                    "value": "jane.smith@company.com"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"Jane\",\n  \"lastName\": \"Smith Updated\",\n  \"phoneNumber\": \"+1-555-0102\",\n  \"bio\": \"HR Manager at Global Tech Solutions\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5001/api/users/update-profile",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "users", "update-profile"]
+                }
+              }
+            },
+            {
+              "name": "Get User By ID - Example 1 (ID: 1)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5001/api/users/1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "users", "1"]
+                }
+              }
+            },
+            {
+              "name": "Get User By ID - Example 2 (ID: 2)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5001/api/users/2",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "users", "2"]
+                }
+              }
+            },
+            {
+              "name": "Get All Users",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5001/api/users/all",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "users", "all"]
+                }
+              }
+            },
+            {
+              "name": "Suspend User - Example 1",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5001/api/users/3/suspend",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "users", "3", "suspend"]
+                }
+              }
+            },
+            {
+              "name": "Suspend User - Example 2",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5001/api/users/4/suspend",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "users", "4", "suspend"]
+                }
+              }
+            },
+            {
+              "name": "Activate User - Example 1",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5001/api/users/3/activate",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "users", "3", "activate"]
+                }
+              }
+            },
+            {
+              "name": "Activate User - Example 2",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5001/api/users/4/activate",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "users", "4", "activate"]
+                }
+              }
+            },
+            {
+              "name": "Delete User - Example 1",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5001/api/users/5",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "users", "5"]
+                }
+              }
+            },
+            {
+              "name": "Delete User - Example 2",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5001/api/users/6",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5001",
+                  "path": ["api", "users", "6"]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Company-Service (Port 5002)",
+      "item": [
+        {
+          "name": "Company Management",
+          "item": [
+            {
+              "name": "Create Company - Example 1 (Tech Company)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Tech Innovations Ltd\",\n  \"description\": \"Leading software development company\",\n  \"website\": \"https://techinnovations.com\",\n  \"companyType\": \"PRIVATE\",\n  \"companySize\": \"MEDIUM\",\n  \"industryType\": \"TECHNOLOGY\",\n  \"employeeCount\": 500,\n  \"location\": \"San Francisco, CA\",\n  \"phoneNumber\": \"+1-555-0123\",\n  \"email\": \"contact@techinnovations.com\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5002/api/companies/create",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5002",
+                  "path": ["api", "companies", "create"]
+                }
+              }
+            },
+            {
+              "name": "Create Company - Example 2 (Finance Company)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "2"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Global Finance Solutions\",\n  \"description\": \"Premier financial services provider\",\n  \"website\": \"https://globalfinance.com\",\n  \"companyType\": \"PUBLIC\",\n  \"companySize\": \"LARGE\",\n  \"industryType\": \"FINANCE\",\n  \"employeeCount\": 1000,\n  \"location\": \"New York, NY\",\n  \"phoneNumber\": \"+1-555-0124\",\n  \"email\": \"hr@globalfinance.com\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5002/api/companies/create",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5002",
+                  "path": ["api", "companies", "create"]
+                }
+              }
+            },
+            {
+              "name": "Create Company - Example 3 (Healthcare Company)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "3"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"HealthCare Innovations\",\n  \"description\": \"Healthcare technology and services\",\n  \"website\": \"https://healthcare-innovations.com\",\n  \"companyType\": \"STARTUP\",\n  \"companySize\": \"SMALL\",\n  \"industryType\": \"HEALTHCARE\",\n  \"employeeCount\": 150,\n  \"location\": \"Boston, MA\",\n  \"phoneNumber\": \"+1-555-0125\",\n  \"email\": \"jobs@healthcare-innovations.com\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5002/api/companies/create",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5002",
+                  "path": ["api", "companies", "create"]
+                }
+              }
+            },
+            {
+              "name": "Get Company By ID - Example 1 (ID: 1)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5002/api/companies/1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5002",
+                  "path": ["api", "companies", "1"]
+                }
+              }
+            },
+            {
+              "name": "Get Company By ID - Example 2 (ID: 2)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5002/api/companies/2",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5002",
+                  "path": ["api", "companies", "2"]
+                }
+              }
+            },
+            {
+              "name": "Get My Company",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5002/api/companies/my",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5002",
+                  "path": ["api", "companies", "my"]
+                }
+              }
+            },
+            {
+              "name": "Get All Companies - No Filter",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5002/api/companies/all",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5002",
+                  "path": ["api", "companies", "all"]
+                }
+              }
+            },
+            {
+              "name": "Get All Companies - Filter by Type",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5002/api/companies/all?companyType=PRIVATE",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5002",
+                  "path": ["api", "companies", "all"],
+                  "query": [
+                    {
+                      "key": "companyType",
+                      "value": "PRIVATE"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Get All Companies - Filter by Industry",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5002/api/companies/all?industryType=TECHNOLOGY",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5002",
+                  "path": ["api", "companies", "all"],
+                  "query": [
+                    {
+                      "key": "industryType",
+                      "value": "TECHNOLOGY"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Update Company - Example 1",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Tech Innovations Ltd - Updated\",\n  \"description\": \"Leading software development company with global presence\",\n  \"website\": \"https://techinnovations-new.com\",\n  \"companyType\": \"PRIVATE\",\n  \"industryType\": \"TECHNOLOGY\",\n  \"employeeCount\": 600,\n  \"location\": \"San Francisco, CA\",\n  \"phoneNumber\": \"+1-555-0133\",\n  \"email\": \"newemail@techinnovations.com\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5002/api/companies/1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5002",
+                  "path": ["api", "companies", "1"]
+                }
+              }
+            },
+            {
+              "name": "Update Company - Example 2",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "2"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Global Finance Solutions - Updated\",\n  \"description\": \"Premier financial services provider across Americas\",\n  \"website\": \"https://globalfinance-updated.com\",\n  \"companyType\": \"PUBLIC\",\n  \"industryType\": \"FINANCE\",\n  \"employeeCount\": 1200,\n  \"location\": \"New York, NY\",\n  \"phoneNumber\": \"+1-555-0134\",\n  \"email\": \"newemail@globalfinance.com\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5002/api/companies/2",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5002",
+                  "path": ["api", "companies", "2"]
+                }
+              }
+            },
+            {
+              "name": "Verify Company - Example 1",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5002/api/companies/1/verify",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5002",
+                  "path": ["api", "companies", "1", "verify"]
+                }
+              }
+            },
+            {
+              "name": "Verify Company - Example 2",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5002/api/companies/2/verify",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5002",
+                  "path": ["api", "companies", "2", "verify"]
+                }
+              }
+            },
+            {
+              "name": "Deactivate Company - Example 1",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5002/api/companies/3/deactivate",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5002",
+                  "path": ["api", "companies", "3", "deactivate"]
+                }
+              }
+            },
+            {
+              "name": "Deactivate Company - Example 2",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5002/api/companies/4/deactivate",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5002",
+                  "path": ["api", "companies", "4", "deactivate"]
+                }
+              }
+            },
+            {
+              "name": "Delete Company - Example 1",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5002/api/companies/5",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5002",
+                  "path": ["api", "companies", "5"]
+                }
+              }
+            },
+            {
+              "name": "Delete Company - Example 2",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "2"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5002/api/companies/6",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5002",
+                  "path": ["api", "companies", "6"]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Job-Service (Port 5003)",
+      "item": [
+        {
+          "name": "Job Categories",
+          "item": [
+            {
+              "name": "Create Category - Example 1 (Software Development)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Software Development\",\n  \"description\": \"All software development related jobs\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5003/api/job-categories/create",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "job-categories", "create"]
+                }
+              }
+            },
+            {
+              "name": "Create Category - Example 2 (Data Science)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Data Science\",\n  \"description\": \"Data science and analytics jobs\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5003/api/job-categories/create",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "job-categories", "create"]
+                }
+              }
+            },
+            {
+              "name": "Create Category - Example 3 (Project Management)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Project Management\",\n  \"description\": \"Project management and coordination roles\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5003/api/job-categories/create",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "job-categories", "create"]
+                }
+              }
+            },
+            {
+              "name": "Get All Categories",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5003/api/job-categories/all",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "job-categories", "all"]
+                }
+              }
+            },
+            {
+              "name": "Get Category By ID - Example 1 (ID: 1)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5003/api/job-categories/1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "job-categories", "1"]
+                }
+              }
+            },
+            {
+              "name": "Get Category By ID - Example 2 (ID: 2)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5003/api/job-categories/2",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "job-categories", "2"]
+                }
+              }
+            },
+            {
+              "name": "Update Category - Example 1",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Software Development - Updated\",\n  \"description\": \"All software development related jobs including mobile and web\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5003/api/job-categories/update/1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "job-categories", "update", "1"]
+                }
+              }
+            },
+            {
+              "name": "Update Category - Example 2",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Data Science - Updated\",\n  \"description\": \"Data science, machine learning and analytics jobs\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5003/api/job-categories/update/2",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "job-categories", "update", "2"]
+                }
+              }
+            },
+            {
+              "name": "Delete Category - Example 1",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5003/api/job-categories/3",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "job-categories", "3"]
+                }
+              }
+            },
+            {
+              "name": "Delete Category - Example 2",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5003/api/job-categories/4",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "job-categories", "4"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Job Skills",
+          "item": [
+            {
+              "name": "Create Skill - Example 1 (Java)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Java\",\n  \"category\": \"PROGRAMMING_LANGUAGES\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5003/api/job-skills/create",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "job-skills", "create"]
+                }
+              }
+            },
+            {
+              "name": "Create Skill - Example 2 (Python)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Python\",\n  \"category\": \"PROGRAMMING_LANGUAGES\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5003/api/job-skills/create",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "job-skills", "create"]
+                }
+              }
+            },
+            {
+              "name": "Create Skill - Example 3 (React)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"React\",\n  \"category\": \"FRONTEND_DEVELOPMENT\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5003/api/job-skills/create",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "job-skills", "create"]
+                }
+              }
+            },
+            {
+              "name": "Get All Skills",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5003/api/job-skills/all",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "job-skills", "all"]
+                }
+              }
+            },
+            {
+              "name": "Get Skill By ID - Example 1 (ID: 1)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5003/api/job-skills/1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "job-skills", "1"]
+                }
+              }
+            },
+            {
+              "name": "Get Skill By ID - Example 2 (ID: 2)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5003/api/job-skills/2",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "job-skills", "2"]
+                }
+              }
+            },
+            {
+              "name": "Update Skill - Example 1",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Java\",\n  \"category\": \"PROGRAMMING_LANGUAGES\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5003/api/job-skills/update/1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "job-skills", "update", "1"]
+                }
+              }
+            },
+            {
+              "name": "Update Skill - Example 2",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Python\",\n  \"category\": \"PROGRAMMING_LANGUAGES\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5003/api/job-skills/update/2",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "job-skills", "update", "2"]
+                }
+              }
+            },
+            {
+              "name": "Delete Skill - Example 1",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5003/api/job-skills/delete/3",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "job-skills", "delete", "3"]
+                }
+              }
+            },
+            {
+              "name": "Delete Skill - Example 2",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5003/api/job-skills/delete/4",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "job-skills", "delete", "4"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Job Tags",
+          "item": [
+            {
+              "name": "Create Tag - Example 1 (Remote)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Remote\",\n  \"description\": \"Remote work opportunity\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5003/api/job-tags/create",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "job-tags", "create"]
+                }
+              }
+            },
+            {
+              "name": "Create Tag - Example 2 (Urgent)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Urgent\",\n  \"description\": \"Urgent hiring needed\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5003/api/job-tags/create",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "job-tags", "create"]
+                }
+              }
+            },
+            {
+              "name": "Create Tag - Example 3 (Startup)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Startup\",\n  \"description\": \"Startup work environment\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5003/api/job-tags/create",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "job-tags", "create"]
+                }
+              }
+            },
+            {
+              "name": "Get All Tags",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5003/api/job-tags/all",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "job-tags", "all"]
+                }
+              }
+            },
+            {
+              "name": "Get Tag By ID - Example 1 (ID: 1)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5003/api/job-tags/1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "job-tags", "1"]
+                }
+              }
+            },
+            {
+              "name": "Get Tag By ID - Example 2 (ID: 2)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5003/api/job-tags/2",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "job-tags", "2"]
+                }
+              }
+            },
+            {
+              "name": "Update Tag - Example 1",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Remote\",\n  \"description\": \"Fully remote work opportunity\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5003/api/job-tags/update/1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "job-tags", "update", "1"]
+                }
+              }
+            },
+            {
+              "name": "Update Tag - Example 2",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Urgent\",\n  \"description\": \"Urgent hiring needed - Fast track process\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5003/api/job-tags/update/2",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "job-tags", "update", "2"]
+                }
+              }
+            },
+            {
+              "name": "Delete Tag - Example 1",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5003/api/job-tags/delete/3",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "job-tags", "delete", "3"]
+                }
+              }
+            },
+            {
+              "name": "Delete Tag - Example 2",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5003/api/job-tags/delete/4",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "job-tags", "delete", "4"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Job Management",
+          "item": [
+            {
+              "name": "Create Job - Example 1 (Senior Developer)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Senior Java Developer\",\n  \"description\": \"We are looking for experienced Java developers\",\n  \"companyId\": 1,\n  \"categoryId\": 1,\n  \"jobType\": \"FULL_TIME\",\n  \"workMode\": \"REMOTE\",\n  \"location\": \"San Francisco, CA\",\n  \"experienceLevel\": \"SENIOR\",\n  \"minSalary\": \"100000\",\n  \"maxSalary\": \"150000\",\n  \"currencyCode\": \"USD\",\n  \"noOfOpenings\": 3,\n  \"skills\": [1],\n  \"tags\": [1]\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5003/api/jobs/create",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "jobs", "create"]
+                }
+              }
+            },
+            {
+              "name": "Create Job - Example 2 (Data Scientist)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "2"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Data Scientist\",\n  \"description\": \"Looking for talented data scientists\",\n  \"companyId\": 2,\n  \"categoryId\": 2,\n  \"jobType\": \"FULL_TIME\",\n  \"workMode\": \"HYBRID\",\n  \"location\": \"New York, NY\",\n  \"experienceLevel\": \"MID_LEVEL\",\n  \"minSalary\": \"80000\",\n  \"maxSalary\": \"120000\",\n  \"currencyCode\": \"USD\",\n  \"noOfOpenings\": 2,\n  \"skills\": [2],\n  \"tags\": [1]\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5003/api/jobs/create",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "jobs", "create"]
+                }
+              }
+            },
+            {
+              "name": "Create Job - Example 3 (Project Manager)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Project Manager\",\n  \"description\": \"Experienced project manager needed\",\n  \"companyId\": 1,\n  \"categoryId\": 3,\n  \"jobType\": \"FULL_TIME\",\n  \"workMode\": \"ONSITE\",\n  \"location\": \"San Francisco, CA\",\n  \"experienceLevel\": \"SENIOR\",\n  \"minSalary\": \"90000\",\n  \"maxSalary\": \"140000\",\n  \"currencyCode\": \"USD\",\n  \"noOfOpenings\": 1,\n  \"skills\": [],\n  \"tags\": [2]\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5003/api/jobs/create",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "jobs", "create"]
+                }
+              }
+            },
+            {
+              "name": "Get Job By ID - Example 1 (ID: 1)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5003/api/jobs/1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "jobs", "1"]
+                }
+              }
+            },
+            {
+              "name": "Get Job By ID - Example 2 (ID: 2)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5003/api/jobs/2",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "jobs", "2"]
+                }
+              }
+            },
+            {
+              "name": "Get All Jobs - No Filter",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5003/api/jobs/all",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "jobs", "all"]
+                }
+              }
+            },
+            {
+              "name": "Get All Jobs - Filter by Keyword",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5003/api/jobs/all?keyword=Java",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "jobs", "all"],
+                  "query": [
+                    {
+                      "key": "keyword",
+                      "value": "Java"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Get All Jobs - Filter by Salary Range",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5003/api/jobs/all?minSalary=80000&maxSalary=150000",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "jobs", "all"],
+                  "query": [
+                    {
+                      "key": "minSalary",
+                      "value": "80000"
+                    },
+                    {
+                      "key": "maxSalary",
+                      "value": "150000"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Get All Jobs - Filter by Job Type",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5003/api/jobs/all?jobType=FULL_TIME",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "jobs", "all"],
+                  "query": [
+                    {
+                      "key": "jobType",
+                      "value": "FULL_TIME"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Get All Jobs - Filter by Work Mode",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5003/api/jobs/all?workMode=REMOTE",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "jobs", "all"],
+                  "query": [
+                    {
+                      "key": "workMode",
+                      "value": "REMOTE"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Get Jobs by Company - Example 1",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5003/api/jobs/company/1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "jobs", "company", "1"]
+                }
+              }
+            },
+            {
+              "name": "Get Jobs by Company - Example 2",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5003/api/jobs/company/2",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "jobs", "company", "2"]
+                }
+              }
+            },
+            {
+              "name": "Update Job - Example 1",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Senior Java Developer - Updated\",\n  \"description\": \"Looking for experienced Java developers with Spring Boot knowledge\",\n  \"companyId\": 1,\n  \"categoryId\": 1,\n  \"jobType\": \"FULL_TIME\",\n  \"workMode\": \"REMOTE\",\n  \"location\": \"San Francisco, CA\",\n  \"experienceLevel\": \"SENIOR\",\n  \"minSalary\": \"110000\",\n  \"maxSalary\": \"160000\",\n  \"currencyCode\": \"USD\",\n  \"noOfOpenings\": 4,\n  \"skills\": [1],\n  \"tags\": [1]\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5003/api/jobs/update/1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "jobs", "update", "1"]
+                }
+              }
+            },
+            {
+              "name": "Update Job - Example 2",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "2"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Data Scientist - Updated\",\n  \"description\": \"Looking for talented data scientists with ML expertise\",\n  \"companyId\": 2,\n  \"categoryId\": 2,\n  \"jobType\": \"FULL_TIME\",\n  \"workMode\": \"HYBRID\",\n  \"location\": \"New York, NY\",\n  \"experienceLevel\": \"MID_LEVEL\",\n  \"minSalary\": \"85000\",\n  \"maxSalary\": \"130000\",\n  \"currencyCode\": \"USD\",\n  \"noOfOpenings\": 3,\n  \"skills\": [2],\n  \"tags\": [1]\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5003/api/jobs/update/2",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "jobs", "update", "2"]
+                }
+              }
+            },
+            {
+              "name": "Publish Job - Example 1",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5003/api/jobs/publish/1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "jobs", "publish", "1"]
+                }
+              }
+            },
+            {
+              "name": "Publish Job - Example 2",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "2"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5003/api/jobs/publish/2",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "jobs", "publish", "2"]
+                }
+              }
+            },
+            {
+              "name": "Close Job - Example 1",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5003/api/jobs/close/1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "jobs", "close", "1"]
+                }
+              }
+            },
+            {
+              "name": "Close Job - Example 2",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "2"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5003/api/jobs/close/2",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "jobs", "close", "2"]
+                }
+              }
+            },
+            {
+              "name": "Delete Job - Example 1",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5003/api/jobs/delete/3",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "jobs", "delete", "3"]
+                }
+              }
+            },
+            {
+              "name": "Delete Job - Example 2",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "2"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5003/api/jobs/delete/4",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5003",
+                  "path": ["api", "jobs", "delete", "4"]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Resume-Service (Port 5004)",
+      "item": [
+        {
+          "name": "Resume Management",
+          "item": [
+            {
+              "name": "Create Resume - Example 1",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"resumeName\": \"John Doe - Software Developer Resume\",\n  \"summary\": \"Experienced software developer with 5+ years in Java and Spring Boot\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5004/api/resumes/create",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "resumes", "create"]
+                }
+              }
+            },
+            {
+              "name": "Create Resume - Example 2",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "2"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"resumeName\": \"Jane Smith - Data Scientist Resume\",\n  \"summary\": \"Data scientist with expertise in Python, machine learning and data analysis\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5004/api/resumes/create",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "resumes", "create"]
+                }
+              }
+            },
+            {
+              "name": "Create Resume - Example 3",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "3"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"resumeName\": \"Admin User - General Resume\",\n  \"summary\": \"Multi-skilled professional with diverse experience\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5004/api/resumes/create",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "resumes", "create"]
+                }
+              }
+            },
+            {
+              "name": "Get Resume By ID - Example 1",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5004/api/resumes/1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "resumes", "1"]
+                }
+              }
+            },
+            {
+              "name": "Get Resume By ID - Example 2",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "2"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5004/api/resumes/2",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "resumes", "2"]
+                }
+              }
+            },
+            {
+              "name": "Get All Resumes - Example 1",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5004/api/resumes/all",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "resumes", "all"]
+                }
+              }
+            },
+            {
+              "name": "Get All Resumes - Example 2",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "2"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5004/api/resumes/all",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "resumes", "all"]
+                }
+              }
+            },
+            {
+              "name": "Update Resume Personal Info - Example 1",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"email\": \"john@example.com\",\n  \"phoneNumber\": \"+1-555-0101\",\n  \"location\": \"San Francisco, CA\",\n  \"linkedin\": \"https://linkedin.com/in/johndoe\",\n  \"website\": \"https://johndoe.com\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5004/api/resumes/1/update/personal-info",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "resumes", "1", "update", "personal-info"]
+                }
+              }
+            },
+            {
+              "name": "Update Resume Personal Info - Example 2",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "2"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"Jane\",\n  \"lastName\": \"Smith\",\n  \"email\": \"jane@example.com\",\n  \"phoneNumber\": \"+1-555-0102\",\n  \"location\": \"New York, NY\",\n  \"linkedin\": \"https://linkedin.com/in/janesmith\",\n  \"website\": \"https://janesmith.com\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5004/api/resumes/2/update/personal-info",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "resumes", "2", "update", "personal-info"]
+                }
+              }
+            },
+            {
+              "name": "Update Resume Summary - Example 1",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5004/api/resumes/1/update/summary?summary=Updated%20summary%20for%20Java%20developer%20with%205%2B%20years%20experience",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "resumes", "1", "update", "summary"],
+                  "query": [
+                    {
+                      "key": "summary",
+                      "value": "Updated summary for Java developer with 5+ years experience"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Update Resume Summary - Example 2",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "2"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5004/api/resumes/2/update/summary?summary=Updated%20summary%20for%20data%20scientist%20with%203%2B%20years%20ML%20experience",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "resumes", "2", "update", "summary"],
+                  "query": [
+                    {
+                      "key": "summary",
+                      "value": "Updated summary for data scientist with 3+ years ML experience"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Set Resume as Default - Example 1",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5004/api/resumes/1/set-default",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "resumes", "1", "set-default"]
+                }
+              }
+            },
+            {
+              "name": "Set Resume as Default - Example 2",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "2"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5004/api/resumes/2/set-default",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "resumes", "2", "set-default"]
+                }
+              }
+            },
+            {
+              "name": "Delete Resume - Example 1",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5004/api/resumes/3/delete",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "resumes", "3", "delete"]
+                }
+              }
+            },
+            {
+              "name": "Delete Resume - Example 2",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "2"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5004/api/resumes/4/delete",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "resumes", "4", "delete"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Education",
+          "item": [
+            {
+              "name": "Add Education - Example 1",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"institutionName\": \"State University\",\n  \"degree\": \"Bachelor of Science\",\n  \"fieldOfStudy\": \"Computer Science\",\n  \"startDate\": \"2015-09\",\n  \"endDate\": \"2019-05\",\n  \"grade\": \"3.8\",\n  \"description\": \"Graduated with honors\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5004/api/resumes/education/1/add",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "resumes", "education", "1", "add"]
+                }
+              }
+            },
+            {
+              "name": "Add Education - Example 2",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "2"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"institutionName\": \"Tech Institute\",\n  \"degree\": \"Master of Science\",\n  \"fieldOfStudy\": \"Data Science\",\n  \"startDate\": \"2019-09\",\n  \"endDate\": \"2021-05\",\n  \"grade\": \"3.9\",\n  \"description\": \"Specialized in machine learning\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5004/api/resumes/education/2/add",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "resumes", "education", "2", "add"]
+                }
+              }
+            },
+            {
+              "name": "Add Education - Example 3",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"institutionName\": \"Online Academy\",\n  \"degree\": \"Certification\",\n  \"fieldOfStudy\": \"AWS Solutions Architect\",\n  \"startDate\": \"2022-01\",\n  \"endDate\": \"2022-06\",\n  \"grade\": \"95\",\n  \"description\": \"AWS Professional Certification\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5004/api/resumes/education/1/add",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "resumes", "education", "1", "add"]
+                }
+              }
+            },
+            {
+              "name": "Get All Educations - Example 1",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5004/api/resumes/education/1/all",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "resumes", "education", "1", "all"]
+                }
+              }
+            },
+            {
+              "name": "Get All Educations - Example 2",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5004/api/resumes/education/2/all",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "resumes", "education", "2", "all"]
+                }
+              }
+            },
+            {
+              "name": "Update Education - Example 1",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"institutionName\": \"State University - Updated\",\n  \"degree\": \"Bachelor of Science\",\n  \"fieldOfStudy\": \"Computer Science\",\n  \"startDate\": \"2015-09\",\n  \"endDate\": \"2019-05\",\n  \"grade\": \"3.85\",\n  \"description\": \"Graduated summa cum laude\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5004/api/resumes/education/1/update/1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "resumes", "education", "1", "update", "1"]
+                }
+              }
+            },
+            {
+              "name": "Update Education - Example 2",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "2"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"institutionName\": \"Tech Institute - Updated\",\n  \"degree\": \"Master of Science\",\n  \"fieldOfStudy\": \"Data Science\",\n  \"startDate\": \"2019-09\",\n  \"endDate\": \"2021-05\",\n  \"grade\": \"3.95\",\n  \"description\": \"Focus on deep learning and NLP\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5004/api/resumes/education/2/update/1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "resumes", "education", "2", "update", "1"]
+                }
+              }
+            },
+            {
+              "name": "Delete Education - Example 1",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5004/api/resumes/education/1/delete/1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "resumes", "education", "1", "delete", "1"]
+                }
+              }
+            },
+            {
+              "name": "Delete Education - Example 2",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "2"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5004/api/resumes/education/2/delete/1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "resumes", "education", "2", "delete", "1"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Work Experience",
+          "item": [
+            {
+              "name": "Add Work Experience - Example 1",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"jobTitle\": \"Senior Java Developer\",\n  \"companyName\": \"Tech Solutions Inc\",\n  \"location\": \"San Francisco, CA\",\n  \"startDate\": \"2019-06\",\n  \"endDate\": \"2023-12\",\n  \"description\": \"Led development of microservices architecture\",\n  \"isCurrentlyWorking\": false\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5004/api/work-experiences/1/add",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "work-experiences", "1", "add"]
+                }
+              }
+            },
+            {
+              "name": "Add Work Experience - Example 2",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "2"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"jobTitle\": \"Data Scientist\",\n  \"companyName\": \"AI Innovations\",\n  \"location\": \"New York, NY\",\n  \"startDate\": \"2021-03\",\n  \"endDate\": \"2024-01\",\n  \"description\": \"Developed ML models for production systems\",\n  \"isCurrentlyWorking\": true\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5004/api/work-experiences/2/add",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "work-experiences", "2", "add"]
+                }
+              }
+            },
+            {
+              "name": "Add Work Experience - Example 3",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"jobTitle\": \"Junior Developer\",\n  \"companyName\": \"StartUp XYZ\",\n  \"location\": \"Remote\",\n  \"startDate\": \"2019-01\",\n  \"endDate\": \"2019-05\",\n  \"description\": \"Developed web application using Spring Boot\",\n  \"isCurrentlyWorking\": false\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5004/api/work-experiences/1/add",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "work-experiences", "1", "add"]
+                }
+              }
+            },
+            {
+              "name": "Get All Work Experiences - Example 1",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5004/api/work-experiences/1/all",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "work-experiences", "1", "all"]
+                }
+              }
+            },
+            {
+              "name": "Get All Work Experiences - Example 2",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5004/api/work-experiences/2/all",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "work-experiences", "2", "all"]
+                }
+              }
+            },
+            {
+              "name": "Update Work Experience - Example 1",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"jobTitle\": \"Senior Java Developer - Updated\",\n  \"companyName\": \"Tech Solutions Inc\",\n  \"location\": \"San Francisco, CA\",\n  \"startDate\": \"2019-06\",\n  \"endDate\": \"2024-01\",\n  \"description\": \"Led development of microservices architecture and mentored junior developers\",\n  \"isCurrentlyWorking\": false\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5004/api/work-experiences/1/1/update",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "work-experiences", "1", "1", "update"]
+                }
+              }
+            },
+            {
+              "name": "Update Work Experience - Example 2",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "2"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"jobTitle\": \"Senior Data Scientist\",\n  \"companyName\": \"AI Innovations\",\n  \"location\": \"New York, NY\",\n  \"startDate\": \"2021-03\",\n  \"endDate\": \"2024-06\",\n  \"description\": \"Developed ML models and led data science team\",\n  \"isCurrentlyWorking\": true\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5004/api/work-experiences/2/1/update",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "work-experiences", "2", "1", "update"]
+                }
+              }
+            },
+            {
+              "name": "Delete Work Experience - Example 1",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5004/api/work-experiences/1/1/delete",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "work-experiences", "1", "1", "delete"]
+                }
+              }
+            },
+            {
+              "name": "Delete Work Experience - Example 2",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "2"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5004/api/work-experiences/2/1/delete",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "work-experiences", "2", "1", "delete"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Resume Skills",
+          "item": [
+            {
+              "name": "Add Resume Skill - Example 1",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"skillName\": \"Java\",\n  \"proficiencyLevel\": \"EXPERT\",\n  \"yearsOfExperience\": 5\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5004/api/resume-skills/1/add",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "resume-skills", "1", "add"]
+                }
+              }
+            },
+            {
+              "name": "Add Resume Skill - Example 2",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "2"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"skillName\": \"Python\",\n  \"proficiencyLevel\": \"EXPERT\",\n  \"yearsOfExperience\": 4\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5004/api/resume-skills/2/add",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "resume-skills", "2", "add"]
+                }
+              }
+            },
+            {
+              "name": "Add Resume Skill - Example 3",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"skillName\": \"Spring Boot\",\n  \"proficiencyLevel\": \"INTERMEDIATE\",\n  \"yearsOfExperience\": 3\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5004/api/resume-skills/1/add",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "resume-skills", "1", "add"]
+                }
+              }
+            },
+            {
+              "name": "Get Resume Skills - Example 1",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5004/api/resume-skills/1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "resume-skills", "1"]
+                }
+              }
+            },
+            {
+              "name": "Get Resume Skills - Example 2",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5004/api/resume-skills/2",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "resume-skills", "2"]
+                }
+              }
+            },
+            {
+              "name": "Update Resume Skill - Example 1",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"skillName\": \"Java\",\n  \"proficiencyLevel\": \"EXPERT\",\n  \"yearsOfExperience\": 6\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5004/api/resume-skills/1/1/update",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "resume-skills", "1", "1", "update"]
+                }
+              }
+            },
+            {
+              "name": "Update Resume Skill - Example 2",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "2"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"skillName\": \"Python\",\n  \"proficiencyLevel\": \"EXPERT\",\n  \"yearsOfExperience\": 5\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5004/api/resume-skills/2/1/update",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "resume-skills", "2", "1", "update"]
+                }
+              }
+            },
+            {
+              "name": "Delete Resume Skill - Example 1",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5004/api/resume-skills/1/1/delete",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "resume-skills", "1", "1", "delete"]
+                }
+              }
+            },
+            {
+              "name": "Delete Resume Skill - Example 2",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "2"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5004/api/resume-skills/2/1/delete",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5004",
+                  "path": ["api", "resume-skills", "2", "1", "delete"]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Application-Service (Port 5005)",
+      "item": [
+        {
+          "name": "Applications",
+          "item": [
+            {
+              "name": "Create Application - Example 1",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"jobId\": 1,\n  \"resumeId\": 1,\n  \"coverLetter\": \"I am interested in the Senior Java Developer position. With 5+ years of experience in Java and Spring Boot, I am confident I can contribute significantly to your team.\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5005/api/applications/create",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5005",
+                  "path": ["api", "applications", "create"]
+                }
+              }
+            },
+            {
+              "name": "Create Application - Example 2",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "2"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"jobId\": 2,\n  \"resumeId\": 2,\n  \"coverLetter\": \"I am excited about this Data Scientist position. With a Master's degree in Data Science and 3+ years of ML experience, I am ready to take on this challenge.\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5005/api/applications/create",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5005",
+                  "path": ["api", "applications", "create"]
+                }
+              }
+            },
+            {
+              "name": "Create Application - Example 3",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"jobId\": 3,\n  \"resumeId\": 1,\n  \"coverLetter\": \"I would like to apply for the Project Manager role. I have successfully managed multiple projects and have strong leadership skills.\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5005/api/applications/create",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5005",
+                  "path": ["api", "applications", "create"]
+                }
+              }
+            },
+            {
+              "name": "Get Application By ID - Example 1",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5005/api/applications/1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5005",
+                  "path": ["api", "applications", "1"]
+                }
+              }
+            },
+            {
+              "name": "Get Application By ID - Example 2",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5005/api/applications/2",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5005",
+                  "path": ["api", "applications", "2"]
+                }
+              }
+            },
+            {
+              "name": "Get All Applications - Example 1 (Candidate 1)",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5005/api/applications/all",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5005",
+                  "path": ["api", "applications", "all"]
+                }
+              }
+            },
+            {
+              "name": "Get All Applications - Example 2 (Candidate 2)",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "2"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5005/api/applications/all",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5005",
+                  "path": ["api", "applications", "all"]
+                }
+              }
+            },
+            {
+              "name": "Get Applications for Job - Example 1 (Job 1)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5005/api/applications/job/1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5005",
+                  "path": ["api", "applications", "job", "1"]
+                }
+              }
+            },
+            {
+              "name": "Get Applications for Job - Example 2 (Job 2)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5005/api/applications/job/2",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5005",
+                  "path": ["api", "applications", "job", "2"]
+                }
+              }
+            },
+            {
+              "name": "Get Applications for Company",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5005/api/applications/company",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5005",
+                  "path": ["api", "applications", "company"]
+                }
+              }
+            },
+            {
+              "name": "Update Application Status - Example 1 (Accept)",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"ACCEPTED\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5005/api/applications/1/status",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5005",
+                  "path": ["api", "applications", "1", "status"]
+                }
+              }
+            },
+            {
+              "name": "Update Application Status - Example 2 (Reject)",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "2"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"REJECTED\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5005/api/applications/2/status",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5005",
+                  "path": ["api", "applications", "2", "status"]
+                }
+              }
+            },
+            {
+              "name": "Update Application Status - Example 3 (Under Review)",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"UNDER_REVIEW\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5005/api/applications/3/status",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5005",
+                  "path": ["api", "applications", "3", "status"]
+                }
+              }
+            },
+            {
+              "name": "Withdraw Application - Example 1",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reason\": \"Found another opportunity\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5005/api/applications/1/withdraw",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5005",
+                  "path": ["api", "applications", "1", "withdraw"]
+                }
+              }
+            },
+            {
+              "name": "Withdraw Application - Example 2",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "2"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reason\": \"Accepted another position\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5005/api/applications/2/withdraw",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5005",
+                  "path": ["api", "applications", "2", "withdraw"]
+                }
+              }
+            },
+            {
+              "name": "Toggle Star (Favorite) - Example 1",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5005/api/applications/1/star",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5005",
+                  "path": ["api", "applications", "1", "star"]
+                }
+              }
+            },
+            {
+              "name": "Toggle Star (Favorite) - Example 2",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "2"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5005/api/applications/2/star",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5005",
+                  "path": ["api", "applications", "2", "star"]
+                }
+              }
+            },
+            {
+              "name": "Delete Application - Example 1",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5005/api/applications/3",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5005",
+                  "path": ["api", "applications", "3"]
+                }
+              }
+            },
+            {
+              "name": "Delete Application - Example 2",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "2"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5005/api/applications/4",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5005",
+                  "path": ["api", "applications", "4"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Application Notes",
+          "item": [
+            {
+              "name": "Add Note to Application - Example 1",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"noteContent\": \"Candidate has strong technical skills. Schedule second round interview.\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5005/api/application-notes/1/add",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5005",
+                  "path": ["api", "application-notes", "1", "add"]
+                }
+              }
+            },
+            {
+              "name": "Add Note to Application - Example 2",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"noteContent\": \"Interviewed on 2024-01-15. Excellent communication skills.\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5005/api/application-notes/1/add",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5005",
+                  "path": ["api", "application-notes", "1", "add"]
+                }
+              }
+            },
+            {
+              "name": "Add Note to Application - Example 3",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "2"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"noteContent\": \"Background check passed. Ready to extend offer.\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:5005/api/application-notes/2/add",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5005",
+                  "path": ["api", "application-notes", "2", "add"]
+                }
+              }
+            },
+            {
+              "name": "Get All Notes for Application - Example 1",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5005/api/application-notes/1/all",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5005",
+                  "path": ["api", "application-notes", "1", "all"]
+                }
+              }
+            },
+            {
+              "name": "Get All Notes for Application - Example 2",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5005/api/application-notes/2/all",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5005",
+                  "path": ["api", "application-notes", "2", "all"]
+                }
+              }
+            },
+            {
+              "name": "Delete Note from Application - Example 1",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5005/api/application-notes/1/delete/1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5005",
+                  "path": ["api", "application-notes", "1", "delete", "1"]
+                }
+              }
+            },
+            {
+              "name": "Delete Note from Application - Example 2",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "X-User-Id",
+                    "value": "1"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:5005/api/application-notes/2/delete/1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "5005",
+                  "path": ["api", "application-notes", "2", "delete", "1"]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+

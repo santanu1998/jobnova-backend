@@ -1,0 +1,73 @@
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+
+# Build artifacts
+*.jar
+*.war
+*.ear
+*.class
+*.log
+
+# Node modules (if any)
+node_modules/
+npm-debug.log
+
+# Security & Credentials
+*.key
+*.pem
+*.crt
+*.cert
+private_key*
+secrets.properties
+credentials.json
+
+# Local Database
+*.db
+*.sqlite
+*.sqlite3
+data/
+postgres_data/
+
+# Temporary files
+*.tmp
+*.temp
+~*
+
+# System files
+.DS_Store
+Thumbs.db
+*.tmp
+
+# Docker
+docker-compose.override.yml
+.dockerignore
+
+# Postman
+Postman_Collection/postman/
+
+# Application properties with secrets
+application.properties.local
+application-prod.properties
+application-dev.yml
+

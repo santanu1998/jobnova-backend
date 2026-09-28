@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.globalco</groupId>
+        <artifactId>Ai-Powered-Job-Platform</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
+    </parent>
+    <artifactId>Ai-Powered-Job-Platform-Service</artifactId>
+    <packaging>pom</packaging>
+    <name>Ai Powered Job Platform Service</name>
+    <description>Business Services Modules</description>
+    <modules>
+        <module>User-Services</module>
+        <module>Company-Services</module>
+        <module>Job-Service</module>
+        <module>Resume-Service</module>
+        <module>Application-Service</module>
+        <module>Job-Preferences</module>
+        <module>AI-Service</module>
+        <module>Notification-Service</module>
+    </modules>
+</project>
