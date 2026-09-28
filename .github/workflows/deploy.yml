@@ -24,12 +24,13 @@ jobs:
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           DUCKDNS_DOMAIN: ${{ secrets.DUCKDNS_DOMAIN }}
           DUCKDNS_TOKEN: ${{ secrets.DUCKDNS_TOKEN }}
+          API_GATEWAY_URL: ${{ secrets.API_GATEWAY_URL || 'http://jobnova-santanu.duckdns.org:5000' }}
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
           command_timeout: 30m
-          envs: DB_PASSWORD,GEMINI_API_KEY,MAIL_USERNAME,MAIL_PASSWORD,JWT_SECRET,DUCKDNS_DOMAIN,DUCKDNS_TOKEN
+          envs: DB_PASSWORD,GEMINI_API_KEY,MAIL_USERNAME,MAIL_PASSWORD,JWT_SECRET,DUCKDNS_DOMAIN,DUCKDNS_TOKEN,API_GATEWAY_URL
           script: |
             set -e
 
@@ -56,6 +57,7 @@ jobs:
             JWT_SECRET=${JWT_SECRET}
             DUCKDNS_DOMAIN=${DUCKDNS_DOMAIN}
             DUCKDNS_TOKEN=${DUCKDNS_TOKEN}
+            API_GATEWAY_URL=${API_GATEWAY_URL}
             EOF
 
             docker compose -p jobnova -f docker/docker-compose.yml --env-file .env down || true
