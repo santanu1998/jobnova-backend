@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -27,19 +28,25 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+          command_timeout: 30m
           envs: DB_PASSWORD,GEMINI_API_KEY,MAIL_USERNAME,MAIL_PASSWORD,JWT_SECRET,DUCKDNS_DOMAIN,DUCKDNS_TOKEN
           script: |
             set -e
 
             mkdir -p ~/jobnova-backend
-            if [ ! -d ~/jobnova-backend/.git ]; then
-              git clone https://github.com/santanu1998/jobnova-backend.git ~/jobnova-backend
-            fi
-
             cd ~/jobnova-backend
-            git fetch origin
-            git checkout main
-            git pull --ff-only origin main
+
+            # The folder may already exist (created by hand) without a .git
+            # directory, so turn it into a checkout instead of cloning into it.
+            if [ ! -d .git ]; then
+              git init -b main
+              git remote add origin https://github.com/santanu1998/jobnova-backend.git
+            fi
+            git fetch origin main
+            git checkout -f -B main origin/main
+
+            # Keep a one-time copy of the hand-made .env before overwriting it
+            cp -n .env .env.bak 2>/dev/null || true
 
             cat > .env <<EOF
             DB_PASSWORD=${DB_PASSWORD}
@@ -51,6 +58,6 @@ jobs:
             DUCKDNS_TOKEN=${DUCKDNS_TOKEN}
             EOF
 
-            docker compose -f docker/docker-compose.yml --env-file .env down || true
-            docker compose -f docker/docker-compose.yml --env-file .env up -d --build
-            docker compose -f docker/docker-compose.yml --env-file .env ps
+            docker compose -p jobnova -f docker/docker-compose.yml --env-file .env down || true
+            docker compose -p jobnova -f docker/docker-compose.yml --env-file .env up -d --build
+            docker compose -p jobnova -f docker/docker-compose.yml --env-file .env ps
