@@ -1,5 +1,11 @@
 package com.globalco.services.impl;
 
+import feign.FeignException;
+
+import java.time.LocalDateTime;
+
+import com.globalco.services.ApplicationScreeningService;
+
 import com.globalco.client.CompanyClient;
 import com.globalco.client.JobClient;
 import com.globalco.client.ResumeClient;
@@ -32,6 +38,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     private final ResumeClient resumeClient;
     private final CompanyClient companyClient;
     private final UserClient userClient;
+    private final ApplicationScreeningService applicationScreeningService;
 //    private final JobClient jobClient;
 
     @Override
@@ -51,13 +58,16 @@ public class ApplicationServiceImpl implements ApplicationService {
                 employerId
         );
         Application savedApplication = applicationRepository.save(application);
+        // score the candidate with AI in the background; the response doesn't wait for it
+        applicationScreeningService.screenInBackground(savedApplication.getId());
         return buildFullResponse(savedApplication);
     }
 
     public ApplicationResponse buildFullResponse(Application application) {
-        JobResponse job = jobClient.getJobById(application.getJobId());
-        CompanyResponse company = companyClient.getCompanyById(application.getCompanyId());
-        UserResponse candidate = userClient.getUserById(application.getCandidateId()); // Replace with actual call to userClient
+        // deleted jobs / companies / users must not break application lists
+        JobResponse job = fetchOrNull(() -> jobClient.getJobById(application.getJobId()));
+        CompanyResponse company = fetchOrNull(() -> companyClient.getCompanyById(application.getCompanyId()));
+        UserResponse candidate = fetchOrNull(() -> userClient.getUserById(application.getCandidateId()));
 //        List<ApplicationNote> notes = List.of(); // Replace with actual call to applicationNoteRepository
 //        ApplicationScreening screening = ApplicationScreening.builder().build(); // Replace with actual call to applicationScreeningRepository
         List<ApplicationNote> notes = applicationNoteRepository
@@ -69,6 +79,14 @@ public class ApplicationServiceImpl implements ApplicationService {
                 company,
                 candidate
         );
+    }
+
+    private static <T> T fetchOrNull(java.util.function.Supplier<T> call) {
+        try {
+            return call.get();
+        } catch (FeignException.NotFound e) {
+            return null;
+        }
     }
 
     @Override
@@ -149,6 +167,7 @@ public class ApplicationServiceImpl implements ApplicationService {
         assertCandidate(application,candidateId);
         application.setStatus(ApplicationStatus.WITHDRAWN);
         application.setWithdrawnReason(req.getReason());
+        application.setWithdrawnAt(LocalDateTime.now());
         Application savedApplication= applicationRepository.save(application);
         return buildFullResponse(savedApplication);
     }
@@ -163,12 +182,26 @@ public class ApplicationServiceImpl implements ApplicationService {
     public ApplicationResponse toggleStar(Long applicationId, Long employerId) {
         Application application=getApplicationEntity(applicationId);
         assertEmployer(application,employerId);
-        if(application.getIsStarred()==null){
-            application.setIsStarred(true);
-        }
-        application.setIsStarred(!application.getIsStarred());
+        application.setIsStarred(!Boolean.TRUE.equals(application.getIsStarred()));
         Application savedApplication= applicationRepository.save(application);
         return buildFullResponse(savedApplication);
+    }
+
+    @Override
+    public ApplicationScreeningResponse screenApplication(Long applicationId, Long employerId) {
+        Application application = getApplicationEntity(applicationId);
+        assertEmployer(application, employerId);
+        return applicationScreeningService.screen(application);
+    }
+
+    @Override
+    public ResumeResponse getApplicationResume(Long applicationId, Long userId) {
+        Application application = getApplicationEntity(applicationId);
+        // only the hiring employer (or the candidate) may see the resume attached to an application
+        if (!userId.equals(application.getEmployerId()) && !userId.equals(application.getCandidateId())) {
+            throw new UnauthorizedActionException("You are not allowed to view this resume.");
+        }
+        return resumeClient.getResumeById(application.getResumeId(), application.getCandidateId());
     }
 
     @Override

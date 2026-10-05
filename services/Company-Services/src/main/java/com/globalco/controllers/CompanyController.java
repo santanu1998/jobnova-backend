@@ -72,9 +72,12 @@ public class CompanyController {
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse> deleteCompany(
             @PathVariable Long id,
-            @RequestHeader("X-User-Id") Long ownerId
+            @RequestHeader("X-User-Id") Long ownerId,
+            @RequestHeader(value = "X-User-Role", required = false) String roles
     ) {
-        companyService.deleteCompany(id, ownerId);
+        // owners can delete their own company; admins can delete any company
+        boolean isAdmin = roles != null && roles.contains("ROLE_ADMIN");
+        companyService.deleteCompany(id, ownerId, isAdmin);
         return ResponseEntity.ok(new ApiResponse("Company deleted successfully", true));
     }
 }

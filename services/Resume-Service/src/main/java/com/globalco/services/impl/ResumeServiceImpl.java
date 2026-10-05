@@ -88,7 +88,33 @@ public class ResumeServiceImpl implements ResumeService {
                 .stream()
                 .map(ResumeMapper::toLanguageResponse)
                 .toList();
-        return ResumeMapper.toResumeResponse(resume, workExperienceResponses, educationResponses, skillResponses, projectResponses, certificationResponses, awardResponses, languageResponses);
+        ResumeResponse response = ResumeMapper.toResumeResponse(resume, workExperienceResponses, educationResponses, skillResponses, projectResponses, certificationResponses, awardResponses, languageResponses);
+        response.setCompletionScore(computeCompletionScore(response));
+        return response;
+    }
+
+    // 0-100: how complete the resume is, based on which sections are filled in
+    private int computeCompletionScore(ResumeResponse r) {
+        int score = 0;
+        PersonalInfoResponse pi = r.getPersonalInfo();
+        if (pi != null) {
+            if (notBlank(pi.getFirstName()) || notBlank(pi.getLastName())) score += 10;
+            if (notBlank(pi.getEmail())) score += 5;
+            if (notBlank(pi.getHeadline())) score += 5;
+        }
+        if (notBlank(r.getSummary())) score += 15;
+        if (!r.getWorkExperiences().isEmpty()) score += 20;
+        if (!r.getEducations().isEmpty()) score += 15;
+        if (r.getSkills().size() >= 2) score += 10;
+        else if (!r.getSkills().isEmpty()) score += 5;
+        if (!r.getProjects().isEmpty()) score += 10;
+        if (!r.getCertifications().isEmpty()) score += 5;
+        if (!r.getLanguages().isEmpty()) score += 5;
+        return Math.min(score, 100);
+    }
+
+    private static boolean notBlank(String s) {
+        return s != null && !s.isBlank();
     }
 
     @Override

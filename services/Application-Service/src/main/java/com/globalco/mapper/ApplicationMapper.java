@@ -51,6 +51,8 @@ public class ApplicationMapper {
                 .notes(notes.stream().map(ApplicationMapper::toNoteResponse).toList())
                 .withdrawnAt(application.getWithdrawnAt())
                 .withdrawnReason(application.getWithdrawnReason())
+                .aiScore(application.getAiScore())
+                .aishortListStatus(application.getAishortListStatus())
                 .appliedAt(application.getAppliedAt())
                 .updatedAt(application.getUpdatedAt())
 //                .screening(toScreeningResponse(screening))

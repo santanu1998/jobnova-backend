@@ -1,5 +1,7 @@
 package com.globalco.mapper;
 
+import com.globalco.domain.CompanyStatus;
+
 import com.globalco.dto.response.CompanyResponse;
 import com.globalco.dto.response.SocialLinkResponse;
 import com.globalco.models.Company;
@@ -37,12 +39,14 @@ public class CompanyMapper {
                 .companySize(company.getCompanySize())
                 .companyType(company.getCompanyType())
                 .industryType(company.getIndustryType())
-                .status(company.getStatus())
+                // rows created before status was set on creation are still awaiting review
+                .status(company.getStatus() != null ? company.getStatus() : CompanyStatus.PENDING_VERIFICATION)
                 .active(company.getActive())
                 .ownerId(company.getOwnerId())
                 .socialLinks(socialLinks)
                 .createdAt(company.getCreatedAt())
                 .updatedAt(company.getUpdatedAt())
+                .verifiedAt(company.getVerifiedAt())
                 .build();
     }
 }

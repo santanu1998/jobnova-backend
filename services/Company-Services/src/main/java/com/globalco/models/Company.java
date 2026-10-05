@@ -54,7 +54,11 @@ public class Company {
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
     private List<SocialLink> socialLinks = new ArrayList<>();
+    @Builder.Default
     private Boolean active = true;
+
+    // set when an admin verifies the company
+    private LocalDateTime verifiedAt;
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private LocalDateTime createdAt;

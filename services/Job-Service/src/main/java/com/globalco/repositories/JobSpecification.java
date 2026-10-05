@@ -1,5 +1,9 @@
 package com.globalco.repositories;
 
+import jakarta.persistence.criteria.JoinType;
+
+import jakarta.persistence.criteria.Join;
+
 import com.globalco.domain.JobStatus;
 import com.globalco.models.Job;
 import com.globalco.payload.JobSearchRequest;
@@ -19,6 +23,27 @@ public class JobSpecification {
             // Only filter by status if provided in the request. Otherwise return jobs of any status.
             if (request.getStatus() != null) {
                 predicates.add(criteriaBuilder.equal(root.get("status"), request.getStatus()));
+            }
+            if (request.getKeyword() != null && !request.getKeyword().isBlank()) {
+                // every word must appear in the title, description, requirements or category name
+                Join<Object, Object> category = root.join("category", JoinType.LEFT);
+                for (String word : request.getKeyword().toLowerCase().trim().split("\\s+")) {
+                    String pattern = "%" + word + "%";
+                    predicates.add(criteriaBuilder.or(
+                            criteriaBuilder.like(criteriaBuilder.lower(root.get("title")), pattern),
+                            criteriaBuilder.like(criteriaBuilder.lower(root.get("description")), pattern),
+                            criteriaBuilder.like(criteriaBuilder.lower(root.get("requirements")), pattern),
+                            criteriaBuilder.like(criteriaBuilder.lower(category.get("name")), pattern)
+                    ));
+                }
+            }
+            if (request.getSkillIds() != null && !request.getSkillIds().isEmpty()) {
+                predicates.add(root.join("skills").get("id").in(request.getSkillIds()));
+                query.distinct(true);
+            }
+            if (request.getTagIds() != null && !request.getTagIds().isEmpty()) {
+                predicates.add(root.join("tags").get("id").in(request.getTagIds()));
+                query.distinct(true);
             }
             if (request.getJobType() != null) {
                 predicates.add(criteriaBuilder.equal(root.get("jobType"), request.getJobType()));

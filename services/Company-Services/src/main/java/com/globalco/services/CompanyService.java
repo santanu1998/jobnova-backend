@@ -21,7 +21,7 @@ public interface CompanyService {
     );
     CompanyResponse updateCompany(Long companyId, Long ownerId, CompanyRequest request);
     CompanyResponse verifyCompany(Long companyId);
-    void deleteCompany(Long companyId, Long ownerId);
+    void deleteCompany(Long companyId, Long ownerId, boolean isAdmin);
     CompanyResponse deactivateCompany(Long companyId);
     Company getCompanyEntityById(Long companyId);
 }

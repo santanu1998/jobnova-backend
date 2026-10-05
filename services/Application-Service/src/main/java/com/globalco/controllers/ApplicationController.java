@@ -1,5 +1,9 @@
 package com.globalco.controllers;
 
+import com.globalco.dto.response.ResumeResponse;
+
+import com.globalco.dto.response.ApplicationScreeningResponse;
+
 import com.globalco.dto.response.ApiResponse;
 import com.globalco.dto.response.ApplicationResponse;
 import com.globalco.payload.CompanyApplicationFilterRequest;
@@ -76,6 +80,22 @@ public class ApplicationController {
             throws Exception {
         return ResponseEntity.ok(applicationService.toggleStar(id, employerId));
     }
+    // Re-runs AI screening for an application (hiring employer only)
+    @PostMapping("/{id}/screen")
+    public ResponseEntity<ApplicationScreeningResponse> screen(
+            @PathVariable Long id,
+            @RequestHeader("X-User-Id") Long employerId) {
+        return ResponseEntity.ok(applicationService.screenApplication(id, employerId));
+    }
+
+    // Resume attached to an application (hiring employer or the candidate)
+    @GetMapping("/{id}/resume")
+    public ResponseEntity<ResumeResponse> getResume(
+            @PathVariable Long id,
+            @RequestHeader("X-User-Id") Long userId) {
+        return ResponseEntity.ok(applicationService.getApplicationResume(id, userId));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse> deleteApplication(
             @PathVariable Long id,

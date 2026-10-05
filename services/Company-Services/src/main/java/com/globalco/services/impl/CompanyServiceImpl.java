@@ -1,5 +1,9 @@
 package com.globalco.services.impl;
 
+import java.time.LocalDateTime;
+
+import com.globalco.exception.ResourceNotFoundException;
+
 import com.globalco.domain.CompanyStatus;
 import com.globalco.domain.CompanyType;
 import com.globalco.domain.IndustryType;
@@ -57,6 +61,8 @@ public class CompanyServiceImpl implements CompanyService {
                 .ownerId(ownerId)
                 .socialLinks(mapSocialLinks(request.getSocialLinks()))
                 .isVerified(false)
+                .status(CompanyStatus.PENDING_VERIFICATION)
+                .active(true)
                 .build();
         Company savedCompany = companyRepository.save(company);
         return CompanyMapper.toResponse(savedCompany);
@@ -94,14 +100,14 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public CompanyResponse getCompanyById(Long companyId) {
         Company company = companyRepository.findById(companyId)
-                .orElseThrow(() -> new IllegalArgumentException("Company not found with ID: " + companyId));
+                .orElseThrow(() -> new ResourceNotFoundException("Company not found with ID: " + companyId));
         return CompanyMapper.toResponse(company);
     }
 
     @Override
     public CompanyResponse getMyCompany(Long ownerId) {
         Company company = companyRepository.findByOwnerId(ownerId)
-                .orElseThrow(() -> new IllegalArgumentException("Company not found with owner ID: " + ownerId));
+                .orElseThrow(() -> new ResourceNotFoundException("You have not created a company yet."));
         return CompanyMapper.toResponse(company);
     }
 
@@ -154,14 +160,18 @@ public class CompanyServiceImpl implements CompanyService {
         Company company = getCompanyEntityById(companyId);
         company.setStatus(CompanyStatus.ACTIVE);
         company.setVerified(true);
+        company.setActive(true);
+        company.setVerifiedAt(LocalDateTime.now());
         Company updatedCompany = companyRepository.save(company);
         return CompanyMapper.toResponse(updatedCompany);
     }
 
     @Override
-    public void deleteCompany(Long companyId, Long ownerId) {
+    public void deleteCompany(Long companyId, Long ownerId, boolean isAdmin) {
         Company company = getCompanyEntityById(companyId);
-        assertOwner(company, ownerId);
+        if (!isAdmin) {
+            assertOwner(company, ownerId);
+        }
         companyRepository.delete(company);
     }
 
@@ -177,6 +187,8 @@ public class CompanyServiceImpl implements CompanyService {
         Company company = getCompanyEntityById(companyId);
         company.setStatus(CompanyStatus.SUSPENDED);
         company.setVerified(false);
+        company.setActive(false);
+        company.setVerifiedAt(null);
         Company updatedCompany = companyRepository.save(company);
         return CompanyMapper.toResponse(updatedCompany);
     }
@@ -184,6 +196,6 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public Company getCompanyEntityById(Long companyId) {
         return companyRepository.findById(companyId)
-                .orElseThrow(() -> new IllegalArgumentException("Company not found with ID: " + companyId));
+                .orElseThrow(() -> new ResourceNotFoundException("Company not found with ID: " + companyId));
     }
 }

@@ -1,5 +1,9 @@
 package com.globalco.services;
 
+import com.globalco.dto.response.ResumeResponse;
+
+import com.globalco.dto.response.ApplicationScreeningResponse;
+
 import com.globalco.domain.ApplicationStatus;
 import com.globalco.dto.response.ApplicationResponse;
 import com.globalco.models.Application;
@@ -19,5 +23,7 @@ public interface ApplicationService {
     ApplicationResponse withdraw(Long applicationId, Long candidateId, WithdrawApplicationRequest req);
     ApplicationResponse toggleStar(Long applicationId, Long employerId);
     void deleteApplication(Long applicationId, Long candidateId);
+    ApplicationScreeningResponse screenApplication(Long applicationId, Long employerId);
+    ResumeResponse getApplicationResume(Long applicationId, Long userId);
     Application getApplicationEntity(Long id);
 }

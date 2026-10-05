@@ -1,5 +1,7 @@
 package com.globalco.services.impl;
 
+import feign.FeignException;
+
 import com.globalco.client.CompanyClient;
 import com.globalco.domain.ExperienceLevel;
 import com.globalco.domain.JobStatus;
@@ -71,10 +73,8 @@ public class JobServiceImpl implements JobService {
                 .status(JobStatus.DRAFT)
                 .openings(jobRequest.getOpenings() != null ? jobRequest.getOpenings() : 1)
                 // parse dates only when provided to avoid NPE/DateTimeParseException
-                .applicationDeadline(jobRequest.getApplicationDeadline() != null && !jobRequest.getApplicationDeadline().isBlank()
-                        ? LocalDate.parse(jobRequest.getApplicationDeadline()) : null)
-                .expiresAt(jobRequest.getExpiresAt() != null && !jobRequest.getExpiresAt().isBlank()
-                        ? LocalDate.parse(jobRequest.getExpiresAt()) : null)
+                .applicationDeadline(parseDate(jobRequest.getApplicationDeadline()))
+                .expiresAt(parseDate(jobRequest.getExpiresAt()))
                 .isActive(true)
                 .build();
         Job savedJob = jobRepository.save(job);
@@ -82,8 +82,19 @@ public class JobServiceImpl implements JobService {
     }
 
     private JobResponse convertToResponse(Job savedJob) {
-        CompanyResponse companyResponse = companyClient.getCompanyById(savedJob.getCompanyId());
+        // a deleted company must not break job listings: return the job without company details
+        CompanyResponse companyResponse = null;
+        try {
+            companyResponse = companyClient.getCompanyById(savedJob.getCompanyId());
+        } catch (FeignException.NotFound e) {
+            // company no longer exists
+        }
         return JobMapper.toResponse(savedJob, companyResponse);
+    }
+
+    // optional "yyyy-MM-dd" dates: blank/null -> null
+    private LocalDate parseDate(String value) {
+        return value != null && !value.isBlank() ? LocalDate.parse(value) : null;
     }
 
     private SalaryRange buildSalaryRange(JobRequest jobRequest) {
@@ -116,8 +127,10 @@ public class JobServiceImpl implements JobService {
     @Transactional(readOnly = true)
     public List<JobResponse> getAllJobs(JobSearchRequest jobSearchRequest) {
         List<Job> jobs = jobRepository.findAll(JobSpecification.build(jobSearchRequest));
+        // public search: hide jobs whose company has been deleted
         return jobs.stream().
                 map(this::convertToResponse).
+                filter(job -> job.getCompany() != null).
                 collect(Collectors.toList());
     }
 
@@ -144,9 +157,10 @@ public class JobServiceImpl implements JobService {
         assertEmployer(job, employerId);
         job.setTitle(jobRequest.getTitle());
         job.setDescription(jobRequest.getDescription());
-        job.setRequirements(jobRequest.getRequirements());
-        job.setResponsibilities(jobRequest.getResponsibilities());
-        job.setBenefits(jobRequest.getBenefits());
+        // same defaults as createJob: these columns are NOT NULL
+        job.setRequirements(jobRequest.getRequirements() != null ? jobRequest.getRequirements() : "");
+        job.setResponsibilities(jobRequest.getResponsibilities() != null ? jobRequest.getResponsibilities() : "");
+        job.setBenefits(jobRequest.getBenefits() != null ? jobRequest.getBenefits() : "");
         job.setCategory(jobCategory);
         job.setSkills(jobSkills);
         job.setTags(jobTags);
@@ -156,8 +170,8 @@ public class JobServiceImpl implements JobService {
         job.setWorkMode(WorkMode.valueOf(jobRequest.getWorkMode()));
         job.setExperienceLevel(ExperienceLevel.valueOf(jobRequest.getExperienceLevel()));
         job.setOpenings(jobRequest.getOpenings() != null ? jobRequest.getOpenings() : 1);
-        job.setApplicationDeadline(LocalDate.parse(jobRequest.getApplicationDeadline()));
-        job.setExpiresAt(LocalDate.parse(jobRequest.getExpiresAt()));
+        job.setApplicationDeadline(parseDate(jobRequest.getApplicationDeadline()));
+        job.setExpiresAt(parseDate(jobRequest.getExpiresAt()));
         return convertToResponse(jobRepository.save(job));
     }
 
