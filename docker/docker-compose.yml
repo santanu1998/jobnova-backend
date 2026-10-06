@@ -190,6 +190,7 @@ services:
     environment:
       SPRING_CONFIG_IMPORT: configserver:http://config-server:8888
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka/
+      JWT_SECRET: ${JWT_SECRET}
       JAVA_TOOL_OPTIONS: "-Dspring.devtools.restart.enabled=false"
     networks:
       - job-portal-net
@@ -244,6 +245,7 @@ services:
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka/
+      JWT_SECRET: ${JWT_SECRET}
       JAVA_TOOL_OPTIONS: "-Dspring.devtools.restart.enabled=false"
     networks:
       - job-portal-net
@@ -381,7 +383,7 @@ services:
     mem_reservation: 512m
     cpus: 1
     ports:
-      - "5010:5010"
+      - "6000:6000"
     depends_on:
       discovery:
         condition: service_healthy
@@ -390,6 +392,7 @@ services:
     environment:
       SPRING_CONFIG_IMPORT: configserver:http://config-server:8888
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka/
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
       JAVA_TOOL_OPTIONS: "-Dspring.devtools.restart.enabled=false"
     networks:
       - job-portal-net
@@ -411,6 +414,10 @@ services:
       SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka/
+      MAIL_HOST: ${MAIL_HOST:-smtp.gmail.com}
+      MAIL_PORT: ${MAIL_PORT:-587}
+      MAIL_USERNAME: ${MAIL_USERNAME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
       JAVA_TOOL_OPTIONS: "-Dspring.devtools.restart.enabled=false"
     networks:
       - job-portal-net
