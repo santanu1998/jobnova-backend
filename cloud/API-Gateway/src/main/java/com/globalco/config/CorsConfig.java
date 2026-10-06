@@ -9,9 +9,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class CorsConfig implements WebMvcConfigurer {
 
     // Comma-separated origin patterns allowed to call the gateway.
-    // Defaults cover the JobNova frontend dev server (Vite) on localhost / 127.0.0.1, any port.
-    // Override in deployment with CORS_ALLOWED_ORIGINS, e.g. "https://jobnova.example.com".
-    @Value("${CORS_ALLOWED_ORIGINS:http://localhost:*,http://127.0.0.1:*}")
+    // Defaults cover the Vite development server and the JobNova Vercel production site.
+    // Override in deployment with CORS_ALLOWED_ORIGINS when using a custom frontend domain.
+    @Value("${CORS_ALLOWED_ORIGINS:http://localhost:*,http://127.0.0.1:*,https://jobnova-frontend-eight.vercel.app}")
     private String[] allowedOrigins;
 
     @Override
