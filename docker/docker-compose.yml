@@ -9,6 +9,7 @@ services:
   # ============================================================
 
   userdb:
+    restart: unless-stopped
     image: postgres:16
     container_name: job-portal-userdb
     mem_limit: 512m
@@ -29,6 +30,7 @@ services:
       - job-portal-net
 
   companydb:
+    restart: unless-stopped
     image: postgres:16
     container_name: job-portal-companydb
     mem_limit: 512m
@@ -49,6 +51,7 @@ services:
       - job-portal-net
 
   jobdb:
+    restart: unless-stopped
     image: postgres:16
     container_name: job-portal-jobdb
     mem_limit: 512m
@@ -69,6 +72,7 @@ services:
       - job-portal-net
 
   applicationdb:
+    restart: unless-stopped
     image: postgres:16
     container_name: job-portal-applicationdb
     mem_limit: 512m
@@ -89,6 +93,7 @@ services:
       - job-portal-net
 
   preferencedb:
+    restart: unless-stopped
     image: postgres:16
     container_name: job-portal-preferencedb
     mem_limit: 512m
@@ -109,6 +114,7 @@ services:
       - job-portal-net
 
   resumedb:
+    restart: unless-stopped
     image: postgres:16
     container_name: job-portal-resumedb
     mem_limit: 512m
@@ -133,6 +139,7 @@ services:
   # ============================================================
 
   discovery:
+    restart: unless-stopped
     image: santanu644/service-registry:latest
     container_name: job-portal-discovery
     mem_limit: 512m
@@ -141,7 +148,7 @@ services:
     ports:
       - "8761:8761"
     environment:
-      JAVA_TOOL_OPTIONS: "-Dspring.devtools.restart.enabled=false"
+      JAVA_TOOL_OPTIONS: "-Dspring.devtools.restart.enabled=false -XX:MaxRAMPercentage=70 -XX:+ExitOnOutOfMemoryError"
     healthcheck:
       test: [ "CMD", "bash", "-c", 'exec 3<>/dev/tcp/127.0.0.1/8761 && printf "GET /actuator/health HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n" >&3 && timeout 5 cat <&3 | grep -q "\"status\":\"UP\""' ]
       interval: 20s
@@ -152,6 +159,7 @@ services:
       - job-portal-net
 
   config-server:
+    restart: unless-stopped
     image: santanu644/config-server:latest
     container_name: job-portal-config-server
     mem_limit: 512m
@@ -164,7 +172,7 @@ services:
         condition: service_healthy
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka/
-      JAVA_TOOL_OPTIONS: "-Dspring.devtools.restart.enabled=false"
+      JAVA_TOOL_OPTIONS: "-Dspring.devtools.restart.enabled=false -XX:MaxRAMPercentage=70 -XX:+ExitOnOutOfMemoryError"
     healthcheck:
       test: [ "CMD", "bash", "-c", 'exec 3<>/dev/tcp/127.0.0.1/8888 && printf "GET /actuator/health HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n" >&3 && timeout 5 cat <&3 | grep -q "\"status\":\"UP\""' ]
       interval: 15s
@@ -175,6 +183,7 @@ services:
       - job-portal-net
 
   gateway:
+    restart: unless-stopped
     image: santanu644/api-gateway:latest
     container_name: job-portal-gateway
     mem_limit: 512m
@@ -191,7 +200,7 @@ services:
       SPRING_CONFIG_IMPORT: configserver:http://config-server:8888
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka/
       JWT_SECRET: ${JWT_SECRET}
-      JAVA_TOOL_OPTIONS: "-Dspring.devtools.restart.enabled=false"
+      JAVA_TOOL_OPTIONS: "-Dspring.devtools.restart.enabled=false -XX:MaxRAMPercentage=70 -XX:+ExitOnOutOfMemoryError"
     networks:
       - job-portal-net
 
@@ -200,7 +209,10 @@ services:
   # ============================================================
 
   kafka:
+    restart: unless-stopped
     image: apache/kafka:4.1.1
+    mem_limit: 768m
+    mem_reservation: 384m
     container_name: job-portal-kafka-dev
     ports:
       - "9092:9092"
@@ -225,6 +237,7 @@ services:
   # ============================================================
 
   user-service:
+    restart: unless-stopped
     image: santanu644/user-services:latest
     container_name: job-portal-user-service
     mem_limit: 512m
@@ -246,11 +259,12 @@ services:
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka/
       JWT_SECRET: ${JWT_SECRET}
-      JAVA_TOOL_OPTIONS: "-Dspring.devtools.restart.enabled=false"
+      JAVA_TOOL_OPTIONS: "-Dspring.devtools.restart.enabled=false -XX:MaxRAMPercentage=70 -XX:+ExitOnOutOfMemoryError"
     networks:
       - job-portal-net
 
   company-service:
+    restart: unless-stopped
     image: santanu644/company-services:latest
     container_name: job-portal-company-service
     mem_limit: 512m
@@ -271,11 +285,12 @@ services:
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka/
-      JAVA_TOOL_OPTIONS: "-Dspring.devtools.restart.enabled=false"
+      JAVA_TOOL_OPTIONS: "-Dspring.devtools.restart.enabled=false -XX:MaxRAMPercentage=70 -XX:+ExitOnOutOfMemoryError"
     networks:
       - job-portal-net
 
   job-service:
+    restart: unless-stopped
     image: santanu644/job-service:latest
     container_name: job-portal-job-service
     mem_limit: 512m
@@ -296,11 +311,12 @@ services:
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka/
-      JAVA_TOOL_OPTIONS: "-Dspring.devtools.restart.enabled=false"
+      JAVA_TOOL_OPTIONS: "-Dspring.devtools.restart.enabled=false -XX:MaxRAMPercentage=70 -XX:+ExitOnOutOfMemoryError"
     networks:
       - job-portal-net
 
   application-service:
+    restart: unless-stopped
     image: santanu644/application-service:latest
     container_name: job-portal-application-service
     mem_limit: 1g
@@ -322,11 +338,12 @@ services:
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka/
-      JAVA_TOOL_OPTIONS: "-Dspring.devtools.restart.enabled=false"
+      JAVA_TOOL_OPTIONS: "-Dspring.devtools.restart.enabled=false -XX:MaxRAMPercentage=70 -XX:+ExitOnOutOfMemoryError"
     networks:
       - job-portal-net
 
   preference-service:
+    restart: unless-stopped
     image: santanu644/job-preferences:latest
     container_name: job-portal-preference-service
     mem_limit: 1g
@@ -347,11 +364,12 @@ services:
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka/
-      JAVA_TOOL_OPTIONS: "-Dspring.devtools.restart.enabled=false"
+      JAVA_TOOL_OPTIONS: "-Dspring.devtools.restart.enabled=false -XX:MaxRAMPercentage=70 -XX:+ExitOnOutOfMemoryError"
     networks:
       - job-portal-net
 
   resume-service:
+    restart: unless-stopped
     image: santanu644/resume-service:latest
     container_name: job-portal-resume-service
     mem_limit: 1g
@@ -372,11 +390,12 @@ services:
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka/
-      JAVA_TOOL_OPTIONS: "-Dspring.devtools.restart.enabled=false"
+      JAVA_TOOL_OPTIONS: "-Dspring.devtools.restart.enabled=false -XX:MaxRAMPercentage=70 -XX:+ExitOnOutOfMemoryError"
     networks:
       - job-portal-net
 
   ai-service:
+    restart: unless-stopped
     image: santanu644/ai-service:latest
     container_name: job-portal-ai-service
     mem_limit: 1g
@@ -393,11 +412,13 @@ services:
       SPRING_CONFIG_IMPORT: configserver:http://config-server:8888
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka/
       GEMINI_API_KEY: ${GEMINI_API_KEY}
-      JAVA_TOOL_OPTIONS: "-Dspring.devtools.restart.enabled=false"
+      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-3.8-flash}
+      JAVA_TOOL_OPTIONS: "-Dspring.devtools.restart.enabled=false -XX:MaxRAMPercentage=70 -XX:+ExitOnOutOfMemoryError"
     networks:
       - job-portal-net
 
   notification-service:
+    restart: unless-stopped
     image: santanu644/notification-service:latest
     container_name: job-portal-notification-service
     mem_limit: 512m
@@ -418,6 +439,6 @@ services:
       MAIL_PORT: ${MAIL_PORT:-587}
       MAIL_USERNAME: ${MAIL_USERNAME}
       MAIL_PASSWORD: ${MAIL_PASSWORD}
-      JAVA_TOOL_OPTIONS: "-Dspring.devtools.restart.enabled=false"
+      JAVA_TOOL_OPTIONS: "-Dspring.devtools.restart.enabled=false -XX:MaxRAMPercentage=70 -XX:+ExitOnOutOfMemoryError"
     networks:
       - job-portal-net
