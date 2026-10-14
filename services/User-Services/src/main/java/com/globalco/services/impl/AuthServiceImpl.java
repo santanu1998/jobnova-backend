@@ -19,6 +19,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import java.util.List;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -53,9 +55,13 @@ public class AuthServiceImpl implements AuthService {
                 .status(UserStatus.ACTIVE)
                 .build();
         User savedUser = userRepository.save(user);
+        // Issue the token with the user's role, exactly as login does. Without the
+        // authorities the JWT carries "authorities":"" and every role check
+        // (admin routes, employer-only actions) fails until the user logs in again.
         Authentication authentication = new UsernamePasswordAuthenticationToken(
-                user.getEmail(),
-                user.getPassword()
+                savedUser.getEmail(),
+                null,
+                List.of(new SimpleGrantedAuthority(savedUser.getRole().name()))
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtProvider.generateToken(authentication, savedUser.getId());
