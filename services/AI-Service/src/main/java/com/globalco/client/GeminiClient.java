@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import java.util.List;
+import java.util.ArrayList;
 
 @Component
 @RequiredArgsConstructor
@@ -72,13 +74,44 @@ public class GeminiClient {
      * are not retried - they would fail identically every time.
      */
     private String callWithRetry(String prompt, GenerateContentConfig config) throws Exception {
+        List<String> models = new ArrayList<>();
+        models.add(geminiProperties.getModel());
+        if (geminiProperties.getFallbackModels() != null) {
+            models.addAll(geminiProperties.getFallbackModels());
+        }
+
+        Exception last = null;
+        for (int m = 0; m < models.size(); m++) {
+            String model = models.get(m);
+            try {
+                return callModelWithRetry(model, prompt, config);
+            } catch (Exception e) {
+                last = e;
+                // only move to another model when this one is unavailable to us
+                if (!isRetryable(e) || m == models.size() - 1) {
+                    break;
+                }
+                log.warn("model {} unavailable ({}), falling back to {}",
+                        model, shortReason(e), models.get(m + 1));
+            }
+        }
+        throw new Exception("failed to get response from gemini:"
+                + (last == null ? "unknown error" : last.getMessage()), last);
+    }
+
+    private static String shortReason(Exception e) {
+        String m = e.getMessage() == null ? "" : e.getMessage();
+        return m.length() > 60 ? m.substring(0, 60) : m;
+    }
+
+    private String callModelWithRetry(String model, String prompt, GenerateContentConfig config) throws Exception {
         int attempts = Math.max(1, geminiProperties.getMaxRetries());
         Exception last = null;
 
         for (int attempt = 1; attempt <= attempts; attempt++) {
             try {
                 GenerateContentResponse response = genaiClient.models.generateContent(
-                        geminiProperties.getModel(), prompt, config);
+                        model, prompt, config);
                 String text = response.text();
                 if (text == null || text.isBlank()) {
                     throw new IllegalStateException("Gemini returned an empty response");
@@ -90,8 +123,8 @@ public class GeminiClient {
                     break;
                 }
                 long backoff = geminiProperties.getRetryDelayMs() * (1L << (attempt - 1));
-                log.warn("Gemini call failed (attempt {}/{}), retrying in {}ms: {}",
-                        attempt, attempts, backoff, e.getMessage());
+                log.warn("Gemini[{}] failed (attempt {}/{}), retrying in {}ms: {}",
+                        model, attempt, attempts, backoff, shortReason(e));
                 try {
                     Thread.sleep(backoff);
                 } catch (InterruptedException ie) {
@@ -100,8 +133,7 @@ public class GeminiClient {
                 }
             }
         }
-        throw new Exception("failed to get response from gemini:"
-                + (last == null ? "unknown error" : last.getMessage()), last);
+        throw last == null ? new Exception("unknown gemini error") : last;
     }
 
     /** Overload / rate-limit / transient network problems are worth another try. */
