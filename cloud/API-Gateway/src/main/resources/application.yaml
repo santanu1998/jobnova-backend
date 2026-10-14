@@ -1,6 +1,14 @@
 spring:
   application:
     name: API-Gateway
+  cloud:
+    gateway:
+      mvc:
+        http-client:
+          # AI calls go to Gemini and can take well over a minute; the default
+          # read timeout aborted them and surfaced as a 500 "Internal Server Error".
+          connect-timeout: 10s
+          read-timeout: 180s
   config:
     import: optional:configserver:http://localhost:8888
 

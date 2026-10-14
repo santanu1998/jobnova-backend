@@ -412,7 +412,7 @@ services:
       SPRING_CONFIG_IMPORT: configserver:http://config-server:8888
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka/
       GEMINI_API_KEY: ${GEMINI_API_KEY}
-      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-3.8-flash}
+      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-3-flash-preview}
       JAVA_TOOL_OPTIONS: "-Dspring.devtools.restart.enabled=false -XX:MaxRAMPercentage=70 -XX:+ExitOnOutOfMemoryError"
     networks:
       - job-portal-net

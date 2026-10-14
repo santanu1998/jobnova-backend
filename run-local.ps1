@@ -11,9 +11,13 @@ Get-Content "$root\.env" | Where-Object { $_ -match '^\s*[^#\s][^=]*=' } | ForEa
     [Environment]::SetEnvironmentVariable($k.Trim(), $v.Trim().Trim('"').Trim("'"), "Process")
 }
 
+# Use the JDK that built the jars (PATH may point at an older JRE)
+$javaExe = if ($env:JAVA_HOME -and (Test-Path "$env:JAVA_HOME\bin\java.exe")) { "$env:JAVA_HOME\bin\java.exe" } else { "java" }
+Write-Host "using java: $javaExe"
+
 function Start-JobNova($module, $name, $extra = @()) {
     $jar = Get-ChildItem "$root\$module\target\*-SNAPSHOT.jar" | Select-Object -First 1
-    Start-Process java -ArgumentList (@("-Xmx384m", "-jar", "`"$($jar.FullName)`"") + $extra) `
+    Start-Process $javaExe -ArgumentList (@("-Xmx384m", "-jar", "`"$($jar.FullName)`"") + $extra) `
         -WorkingDirectory "$root\$module" -WindowStyle Hidden `
         -RedirectStandardOutput "$root\logs\$name.log" -RedirectStandardError "$root\logs\$name.err.log"
     Write-Host "started $name"
