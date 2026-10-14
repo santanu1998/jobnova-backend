@@ -60,6 +60,9 @@ jobs:
             API_GATEWAY_URL=${API_GATEWAY_URL}
             EOF
 
-            docker compose -p jobnova -f docker/docker-compose.yml --env-file .env down || true
-            docker compose -p jobnova -f docker/docker-compose.yml --env-file .env up -d --build
+            # --remove-orphans is required: the six per-service postgres containers
+            # were replaced by a single one, and containers no longer named in the
+            # compose file are otherwise left running and keep holding port 5433.
+            docker compose -p jobnova -f docker/docker-compose.yml --env-file .env down --remove-orphans || true
+            docker compose -p jobnova -f docker/docker-compose.yml --env-file .env up -d --build --remove-orphans
             docker compose -p jobnova -f docker/docker-compose.yml --env-file .env ps
