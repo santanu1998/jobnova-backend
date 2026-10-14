@@ -1,6 +1,7 @@
 package com.globalco.exception.handler;
 
 import com.globalco.exception.ResourceNotFoundException;
+import com.globalco.exception.UnauthorizedActionException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -16,6 +17,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<Map<String, Object>> handleNotFound(ResourceNotFoundException e) {
         return build(HttpStatus.NOT_FOUND, "Not Found", e.getMessage());
+    }
+
+    @ExceptionHandler(UnauthorizedActionException.class)
+    public ResponseEntity<Map<String, Object>> handleUnauthorized(UnauthorizedActionException e) {
+        return build(HttpStatus.FORBIDDEN, "Forbidden", e.getMessage());
     }
 
     @ExceptionHandler(IllegalArgumentException.class)

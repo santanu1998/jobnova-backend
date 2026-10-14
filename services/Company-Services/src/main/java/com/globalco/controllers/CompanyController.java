@@ -1,5 +1,7 @@
 package com.globalco.controllers;
 
+import com.globalco.exception.UnauthorizedActionException;
+
 import com.globalco.domain.CompanyStatus;
 import com.globalco.domain.CompanyType;
 import com.globalco.domain.IndustryType;
@@ -25,8 +27,17 @@ public class CompanyController {
     @PostMapping("/create")
     public ResponseEntity<CompanyResponse> createCompany(
             @RequestHeader("X-User-Id") Long ownerId,
+            @RequestHeader(value = "X-User-Role", required = false) String roles,
             @RequestBody @Valid CompanyRequest request
             ) {
+        // The gateway only checks that the JWT is valid, so the role is enforced here.
+        // Without this a job seeker could create a company.
+        // A blank header means an older token that predates roles being embedded -
+        // allow those through rather than locking existing users out.
+        if (roles != null && !roles.isBlank()
+                && !roles.contains("ROLE_EMPLOYER") && !roles.contains("ROLE_ADMIN")) {
+            throw new UnauthorizedActionException("Only employers can create a company profile.");
+        }
         return ResponseEntity.status(HttpStatus.CREATED).body(companyService.createCompany(ownerId, request));
     }
 

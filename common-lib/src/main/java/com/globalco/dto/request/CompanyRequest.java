@@ -21,7 +21,8 @@ public class CompanyRequest {
     private String description;
     private String logoUrl;
     private String coverImageUrl;
-    @Pattern(regexp = "^(https?://).*", message = "Website must be a valid URL")
+    // allow blank: the website is optional, only validate it when one is given
+    @Pattern(regexp = "^(https?://.*)?$", message = "Website must start with http:// or https://")
     private String website;
     @NotBlank(message = "Company email must be valid")
     private String email;
