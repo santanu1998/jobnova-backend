@@ -8,10 +8,30 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
+    /**
+     * Wrong password or unknown email.
+     * <p>
+     * Both return the same message on purpose: telling the caller which one was
+     * wrong lets an attacker discover which email addresses are registered.
+     */
+    @ExceptionHandler({UsernameNotFoundException.class, BadCredentialsException.class})
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ResponseEntity<ErrorResponse> handleBadCredentials(Exception e) {
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .message("Invalid email or password")
+                .error("Unauthorized")
+                .status(HttpStatus.UNAUTHORIZED.value())
+                .timestamp(System.currentTimeMillis())
+                .build();
+        return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
+    }
 
     @ExceptionHandler(EmailAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.CONFLICT)

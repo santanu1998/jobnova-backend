@@ -75,6 +75,9 @@ public class AuthServiceImpl implements AuthService {
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
         User user = userRepository.findByEmail(loginRequest.getEmail());
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found: " + loginRequest.getEmail());
+        }
         String jwt = jwtProvider.generateToken(authentication, user.getId());
         user.setLastLogin(LocalDateTime.now());
         userRepository.save(user);
