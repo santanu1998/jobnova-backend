@@ -186,6 +186,12 @@ services:
     restart: unless-stopped
     image: santanu644/api-gateway:latest
     container_name: job-portal-gateway
+    healthcheck:
+      test: [ "CMD", "bash", "-c", 'exec 3<>/dev/tcp/127.0.0.1/5000 && printf "GET /actuator/health HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n" >&3 && timeout 5 cat <&3 | grep -q "\"status\":\"UP\""' ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
     mem_limit: 512m
     mem_reservation: 256m
     cpus: 0.5
@@ -201,6 +207,8 @@ services:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka/
       JWT_SECRET: ${JWT_SECRET}
       JAVA_TOOL_OPTIONS: "-Dspring.devtools.restart.enabled=false -XX:MaxRAMPercentage=70 -XX:+ExitOnOutOfMemoryError"
+    labels:
+      autoheal: "true"
     networks:
       - job-portal-net
 
@@ -240,6 +248,12 @@ services:
     restart: unless-stopped
     image: santanu644/user-services:latest
     container_name: job-portal-user-service
+    healthcheck:
+      test: [ "CMD", "bash", "-c", 'exec 3<>/dev/tcp/127.0.0.1/5001 && printf "GET /actuator/health HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n" >&3 && timeout 5 cat <&3 | grep -q "\"status\":\"UP\""' ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
     mem_limit: 512m
     mem_reservation: 256m
     cpus: 0.5
@@ -260,6 +274,8 @@ services:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka/
       JWT_SECRET: ${JWT_SECRET}
       JAVA_TOOL_OPTIONS: "-Dspring.devtools.restart.enabled=false -XX:MaxRAMPercentage=70 -XX:+ExitOnOutOfMemoryError"
+    labels:
+      autoheal: "true"
     networks:
       - job-portal-net
 
@@ -267,6 +283,12 @@ services:
     restart: unless-stopped
     image: santanu644/company-services:latest
     container_name: job-portal-company-service
+    healthcheck:
+      test: [ "CMD", "bash", "-c", 'exec 3<>/dev/tcp/127.0.0.1/5002 && printf "GET /actuator/health HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n" >&3 && timeout 5 cat <&3 | grep -q "\"status\":\"UP\""' ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
     mem_limit: 512m
     mem_reservation: 256m
     cpus: 0.5
@@ -286,6 +308,8 @@ services:
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka/
       JAVA_TOOL_OPTIONS: "-Dspring.devtools.restart.enabled=false -XX:MaxRAMPercentage=70 -XX:+ExitOnOutOfMemoryError"
+    labels:
+      autoheal: "true"
     networks:
       - job-portal-net
 
@@ -293,6 +317,12 @@ services:
     restart: unless-stopped
     image: santanu644/job-service:latest
     container_name: job-portal-job-service
+    healthcheck:
+      test: [ "CMD", "bash", "-c", 'exec 3<>/dev/tcp/127.0.0.1/5003 && printf "GET /actuator/health HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n" >&3 && timeout 5 cat <&3 | grep -q "\"status\":\"UP\""' ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
     mem_limit: 512m
     mem_reservation: 256m
     cpus: 0.5
@@ -312,6 +342,8 @@ services:
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka/
       JAVA_TOOL_OPTIONS: "-Dspring.devtools.restart.enabled=false -XX:MaxRAMPercentage=70 -XX:+ExitOnOutOfMemoryError"
+    labels:
+      autoheal: "true"
     networks:
       - job-portal-net
 
@@ -319,6 +351,12 @@ services:
     restart: unless-stopped
     image: santanu644/application-service:latest
     container_name: job-portal-application-service
+    healthcheck:
+      test: [ "CMD", "bash", "-c", 'exec 3<>/dev/tcp/127.0.0.1/5005 && printf "GET /actuator/health HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n" >&3 && timeout 5 cat <&3 | grep -q "\"status\":\"UP\""' ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
     mem_limit: 1g
     mem_reservation: 512m
     cpus: 1
@@ -339,6 +377,8 @@ services:
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka/
       JAVA_TOOL_OPTIONS: "-Dspring.devtools.restart.enabled=false -XX:MaxRAMPercentage=70 -XX:+ExitOnOutOfMemoryError"
+    labels:
+      autoheal: "true"
     networks:
       - job-portal-net
 
@@ -346,6 +386,12 @@ services:
     restart: unless-stopped
     image: santanu644/job-preferences:latest
     container_name: job-portal-preference-service
+    healthcheck:
+      test: [ "CMD", "bash", "-c", 'exec 3<>/dev/tcp/127.0.0.1/5006 && printf "GET /actuator/health HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n" >&3 && timeout 5 cat <&3 | grep -q "\"status\":\"UP\""' ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
     mem_limit: 1g
     mem_reservation: 512m
     cpus: 1
@@ -365,6 +411,8 @@ services:
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka/
       JAVA_TOOL_OPTIONS: "-Dspring.devtools.restart.enabled=false -XX:MaxRAMPercentage=70 -XX:+ExitOnOutOfMemoryError"
+    labels:
+      autoheal: "true"
     networks:
       - job-portal-net
 
@@ -372,6 +420,12 @@ services:
     restart: unless-stopped
     image: santanu644/resume-service:latest
     container_name: job-portal-resume-service
+    healthcheck:
+      test: [ "CMD", "bash", "-c", 'exec 3<>/dev/tcp/127.0.0.1/5004 && printf "GET /actuator/health HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n" >&3 && timeout 5 cat <&3 | grep -q "\"status\":\"UP\""' ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
     mem_limit: 1g
     mem_reservation: 512m
     cpus: 1
@@ -391,6 +445,8 @@ services:
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8761/eureka/
       JAVA_TOOL_OPTIONS: "-Dspring.devtools.restart.enabled=false -XX:MaxRAMPercentage=70 -XX:+ExitOnOutOfMemoryError"
+    labels:
+      autoheal: "true"
     networks:
       - job-portal-net
 
@@ -398,6 +454,12 @@ services:
     restart: unless-stopped
     image: santanu644/ai-service:latest
     container_name: job-portal-ai-service
+    healthcheck:
+      test: [ "CMD", "bash", "-c", 'exec 3<>/dev/tcp/127.0.0.1/6000 && printf "GET /actuator/health HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n" >&3 && timeout 5 cat <&3 | grep -q "\"status\":\"UP\""' ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
     mem_limit: 1g
     mem_reservation: 512m
     cpus: 1
@@ -414,6 +476,8 @@ services:
       GEMINI_API_KEY: ${GEMINI_API_KEY}
       GEMINI_MODEL: ${GEMINI_MODEL:-gemini-3-flash-preview}
       JAVA_TOOL_OPTIONS: "-Dspring.devtools.restart.enabled=false -XX:MaxRAMPercentage=70 -XX:+ExitOnOutOfMemoryError"
+    labels:
+      autoheal: "true"
     networks:
       - job-portal-net
 
@@ -442,3 +506,21 @@ services:
       JAVA_TOOL_OPTIONS: "-Dspring.devtools.restart.enabled=false -XX:MaxRAMPercentage=70 -XX:+ExitOnOutOfMemoryError"
     networks:
       - job-portal-net
+
+  # Restarts any container that its own healthcheck reports as unhealthy.
+  # A plain "restart:" policy only reacts to a process that has EXITED, so a
+  # service that is still running but wedged (stuck DB pool, heap thrash) would
+  # otherwise stay broken and keep serving 500s. Only containers carrying the
+  # autoheal=true label are ever touched.
+  autoheal:
+    restart: unless-stopped
+    image: willfarrell/autoheal:1.2.0
+    container_name: job-portal-autoheal
+    mem_limit: 64m
+    environment:
+      AUTOHEAL_CONTAINER_LABEL: autoheal
+      AUTOHEAL_INTERVAL: 30
+      AUTOHEAL_START_PERIOD: 120
+      DOCKER_SOCK: /var/run/docker.sock
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
